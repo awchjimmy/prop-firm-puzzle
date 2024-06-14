@@ -1,9 +1,38 @@
 import pyautogui
 import time
+from fastapi import FastAPI
+from pydantic import BaseModel
 
 # update the co-ordinates to fit your screen
 long_button_x, long_button_y = 100, 150
 close_button_x, close_button_y = 100, 550
+
+class TradingMessage(BaseModel):
+    action: str
+    contracts: float
+    marketPosition: str
+    positionSize: float
+    prevMarketPosition: str
+    price: float
+    symbol: str
+    time: str
+
+# fastapi app
+app = FastAPI()
+
+@app.get("/")
+def read_root():
+    return {"Hello": "World"}
+
+@app.post("/trading-business/d87fe8c7-fbfa-4104-8230-42a0be573aae")
+def trading_business(msg: TradingMessage):
+    # Open or close position based on Tradingview signal
+    if msg.action == 'buy':
+        gui_open_long()
+    else:
+        gui_close_long()
+        
+    return {"Hello": "World"}
 
 def gui_open_long():
     pyautogui.moveTo(long_button_x, long_button_y)
@@ -14,11 +43,3 @@ def gui_close_long():
     pyautogui.moveTo(close_button_x, close_button_y)
     time.sleep(0.25)
     pyautogui.click()
-
-def main():
-    gui_open_long()
-    time.sleep(1)
-    gui_close_long()
-    
-if __name__ == '__main__':
-    main()
