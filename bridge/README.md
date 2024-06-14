@@ -28,4 +28,5 @@ lt --port 8000
 https://all-ducks-tell.loca.lt/trading-business/d87fe8c7-fbfa-4104-8230-42a0be573aae
 
 # example message
+{"action":"{{strategy.order.action}}","contracts":"{{strategy.order.contracts}}","marketPosition":"{{strategy.market_position}}","positionSize":"{{strategy.position_size}}","prevMarketPosition":"{{strategy.prev_market_position}}","price":"{{close}}","symbol":"{{ticker}}","time":"{{timenow}}"}
 ```
