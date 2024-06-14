@@ -4,8 +4,9 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 # update the co-ordinates to fit your screen
-long_button_x, long_button_y = 100, 150
-close_button_x, close_button_y = 100, 550
+long_button_x, long_button_y = 550, 300
+close_button_x, close_button_y = 885, 596
+delay_seconds = 0.7
 
 class TradingMessage(BaseModel):
     action: str
@@ -36,10 +37,10 @@ def trading_business(msg: TradingMessage):
 
 def gui_open_long():
     pyautogui.moveTo(long_button_x, long_button_y)
-    time.sleep(0.25)
+    time.sleep(delay_seconds)
     pyautogui.click()
     
 def gui_close_long():
     pyautogui.moveTo(close_button_x, close_button_y)
-    time.sleep(0.25)
+    time.sleep(delay_seconds)
     pyautogui.click()
