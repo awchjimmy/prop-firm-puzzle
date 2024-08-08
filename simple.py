@@ -1,5 +1,5 @@
 from helium import *
-import time
+from time import sleep
 import json
 
 def login():
@@ -12,16 +12,29 @@ def login():
     click(Button('Log In'))
     
     # wait until page is fully loaded
-    wait_until(Text('BTC/USD').exists, timeout_secs=30)
+    wait_until(Text('BTC/USD').exists, timeout_secs=10)
 
 def open_long():
-    sell_button = Button(to_right_of='BTC/USD')
-    buy_button = Button(to_right_of=sell_button)
+    sleep(1)
+    rightclick(Text('BTC/USD'))
 
-    click(buy_button)
+    sleep(1)
+    click(Text('Buy Order'))
+
+    sleep(1)
+    click(Text('Send Order'))
+
+    sleep(3)
+
 
 def close_long():
-    pass
+    sleep(1)
+    rightclick(Text('—'))
+
+    sleep(1)
+    click(Text('Close Position'))
+
+    sleep(3)
 
 def main():
     # start browser
@@ -31,13 +44,10 @@ def main():
     login()
 
     # open long
-    open_long()
+    # open_long()
 
     # close long
-    # close_long()
-
-    # debug
-    time.sleep(3)
+    close_long()
 
     # stop browser
     kill_browser()
