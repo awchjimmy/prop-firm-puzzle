@@ -3,31 +3,43 @@ import time
 import json
 
 def login():
+    # read credentials and login
     data = {}
     with open('env/credentials.json') as f:
         data = json.load(f)
-    
     write(data['user'], into='Username')
     write(data['pass'], into='Password')
     click(Button('Log In'))
     
-    # Wait actually 15 secs even if page the page is completely loaded.
-    # Or else the script might result in undesire behavior.
-    time.sleep(15)
+    # wait until page is fully loaded
+    wait_until(Text('BTC/USD').exists, timeout_secs=30)
+
+def open_long():
+    sell_button = Button(to_right_of='BTC/USD')
+    buy_button = Button(to_right_of=sell_button)
+
+    click(buy_button)
+
+def close_long():
+    pass
 
 def main():
     # start browser
     start_chrome('https://trade.brightfunded.com/')
 
-    # log in
+    # try to login
     login()
 
-    # buy button
-    print(Text('BTC/USD').exists())
-    print(Button(to_right_of='BTC/USD').is_enabled())
+    # open long
+    open_long()
+
+    # close long
+    # close_long()
+
+    # debug
+    time.sleep(3)
 
     # stop browser
     kill_browser()
-    
 
 main()
