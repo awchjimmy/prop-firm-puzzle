@@ -1,6 +1,20 @@
 from helium import *
 from time import sleep
 import json
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+class TradingviewSignal(BaseModel):
+    action: str
+    contracts: str
+    marketPosition: str
+    positionSize: str
+    prevMarketPosition: str
+    price: str
+    symbol: str
+    time: str
+
+app = FastAPI()
 
 def login():
     # read credentials and login
@@ -66,8 +80,11 @@ def tradingview_trigger_sell():
     # stop browser
     kill_browser()
 
-def main():
-    tradingview_trigger_buy()
-    tradingview_trigger_sell()
-
-main()
+@app.post("/tradingview-signal/a46bac4c-ded8-498b-b49f-80d2c5e7fd92")
+def handleSignal(signal: TradingviewSignal):
+    if signal.action == 'buy':
+        tradingview_trigger_buy()
+    elif signal.action == 'sell':
+        tradingview_trigger_sell()
+    else:
+        print('Unknown action from tradingview.')
