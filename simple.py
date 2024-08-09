@@ -26,7 +26,7 @@ def login():
     click(Button('Log In'))
     
     # wait until page is fully loaded
-    wait_until(Text('BTC/USD').exists, timeout_secs=10)
+    wait_until(Text('BTC/USD').exists, timeout_secs=20)
 
 def open_long():
     # locate "BTC/USD" in watchlist view
@@ -81,7 +81,7 @@ def tradingview_trigger_sell():
     kill_browser()
 
 @app.post("/tradingview-signal/a46bac4c-ded8-498b-b49f-80d2c5e7fd92")
-def handleSignal(signal: TradingviewSignal):
+def handle_signal(signal: TradingviewSignal):
     if signal.action == 'buy':
         tradingview_trigger_buy()
     elif signal.action == 'sell':
