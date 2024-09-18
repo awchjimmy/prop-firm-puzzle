@@ -52,3 +52,13 @@ cp .env.example .env
 # Run the server
 venv/bin/fastapi run --port=80
 ```
+
+### Setup Tradingview Alert
+1. `Webhook URL` on Notifications tab
+```
+<YOUR_SERVER_WEBHOOK_HERE>
+```
+2. `Message` on Settings tab
+```json
+{"action":"{{strategy.order.action}}","contracts":"0.01","marketPosition":"{{strategy.market_position}}","positionSize":"{{strategy.position_size}}","prevMarketPosition":"{{strategy.prev_market_position}}","price":"{{close}}","symbol":"{{ticker}}","time":"{{timenow}}"}
+```
