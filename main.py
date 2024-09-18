@@ -19,7 +19,7 @@ app = FastAPI()
 def login():
     # read credentials and login
     data = {}
-    with open('env/credentials.json') as f:
+    with open('.env') as f:
         data = json.load(f)
     write(data['user'], into='Username')
     write(data['pass'], into='Password')
@@ -56,7 +56,7 @@ def close_long():
 
 def tradingview_trigger_buy():
     # start browser
-    start_chrome('https://trade.brightfunded.com/', headless=True)
+    start_chrome('https://trade.brightfunded.com/', headless=False)
 
     # try to login
     login()
@@ -69,7 +69,7 @@ def tradingview_trigger_buy():
 
 def tradingview_trigger_sell():
     # start browser
-    start_chrome('https://trade.brightfunded.com/', headless=True)
+    start_chrome('https://trade.brightfunded.com/', headless=False)
 
     # try to login
     login()
