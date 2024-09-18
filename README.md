@@ -11,6 +11,11 @@ flowchart LR
     bridge --> bf[BrightFunded open/close a position]
 ```
 
+### Prerequisites
+You'll need a DESKTOP version of ubuntu-based OS for browser automation.  
+I use `Kali Linux` on `Linode Marketplace` for easy setup.  
+Feel free to use other distro if you manage to install all dependencies.  
+
 ### Setup Chrome
 ```sh
 # Download the Google Chrome .deb package
@@ -58,6 +63,7 @@ venv/bin/fastapi run --port=80
 ```
 <YOUR_SERVER_WEBHOOK_HERE>
 ```
+
 2. `Message` on Settings tab
 ```json
 {"action":"{{strategy.order.action}}","contracts":"0.01","marketPosition":"{{strategy.market_position}}","positionSize":"{{strategy.position_size}}","prevMarketPosition":"{{strategy.prev_market_position}}","price":"{{close}}","symbol":"{{ticker}}","time":"{{timenow}}"}
